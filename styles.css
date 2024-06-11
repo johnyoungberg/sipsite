@@ -53,8 +53,6 @@ main {
     display: none;
     overflow: hidden;
     background-color: #f9f9f9;
-    max-height: 0;
-    transition: max-height 0.3s ease-out;
 }
 
 .collapsible-header:hover {
