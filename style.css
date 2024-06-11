@@ -1,13 +1,13 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #004aad; /* Primary color from Canva document */
+    color: #ffffff;
     padding: 1rem;
     text-align: center;
 }
@@ -23,23 +23,24 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
+    font-weight: bold;
 }
 
 section {
     padding: 2rem;
-    background-color: #fff;
+    background-color: #ffffff;
     margin: 1rem;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: #333;
-    color: #fff;
+    background-color: #004aad;
+    color: #ffffff;
     position: fixed;
     width: 100%;
     bottom: 0;
@@ -48,12 +49,30 @@ footer {
 .content {
     max-width: 800px;
     margin: auto;
+    color: #333333;
+}
+
+h2 {
+    color: #004aad;
 }
 
 h3 {
-    color: #333;
+    color: #333333;
 }
 
 .question {
     margin-bottom: 1rem;
+}
+
+button {
+    background-color: #004aad;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #003080; /* Darker shade for hover effect */
 }
