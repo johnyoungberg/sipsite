@@ -53,6 +53,8 @@ main {
     display: none;
     overflow: hidden;
     background-color: #f9f9f9;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
 }
 
 .collapsible-header:hover {
@@ -63,9 +65,39 @@ main {
     margin-top: 2em;
 }
 
-.drag-drop-interface {
-    background-color: white;
+.diagram {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}
+
+.drop-zone {
+    width: 18%;
+    height: 100px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+}
+
+.behaviors {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.draggable {
+    width: 30%;
     padding: 1em;
-    border: 1px solid #ccc;
-    margin-bottom: 1em;
+    margin: 1em;
+    background-color: #ccc;
+    text-align: center;
+    cursor: grab;
+    border: 1px solid #999;
+    transition: background-color 0.3s ease;
+}
+
+.draggable:active {
+    cursor: grabbing;
+    background-color: #bbb;
 }
