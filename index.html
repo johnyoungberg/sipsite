@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIP Training</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sales and Install Process (SIP) Training</h1>
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#roleplay">Interactive Role-Play</a></li>
+                <li><a href="#test">Memorization Test</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="overview">
+        <h2>Overview of SIP</h2>
+        <div class="content">
+            <h3>Introduction</h3>
+            <p>The Sales and Install Process (SIP) at Vivint is a structured method to ensure consistency and success in delivering customer experiences.</p>
+            <h3>Detailed Steps</h3>
+            <ol>
+                <li>Appointment Readiness: Review customer info, discover interests, and preempt potential issues.</li>
+                <li>Introduction: Win a friend, establish customer baseline, and outline appointment.</li>
+                <li>Walkthrough/Design: Preempt objections, customize/build value, and verify understanding.</li>
+                <li>Close: Solution/cost review, overcome objections, and start transaction.</li>
+                <li>Review: Review completed work, educate customer, and benefits follow-up.</li>
+            </ol>
+            <h3>Benefits</h3>
+            <p>Following the SIP ensures high-quality customer service, satisfaction, and a clear path to achieving professional goals.</p>
+        </div>
+    </section>
+
+    <section id="roleplay">
+        <h2>Interactive Role-Play</h2>
+        <div class="content">
+            <h3>Simulate Customer Interactions</h3>
+            <p>Choose a scenario and practice your responses.</p>
+            <div id="scenario">
+                <!-- Role-play scenarios will be populated here -->
+            </div>
+            <button id="start-roleplay">Start Role-Play</button>
+        </div>
+    </section>
+
+    <section id="test">
+        <h2>Memorization Test</h2>
+        <div class="content">
+            <h3>Test Your Knowledge</h3>
+            <form id="quiz-form">
+                <div class="question">
+                    <label>1. What is the first step in the SIP?</label>
+                    <input type="radio" name="q1" value="Appointment Readiness"> Appointment Readiness<br>
+                    <input type="radio" name="q1" value="Introduction"> Introduction<br>
+                    <input type="radio" name="q1" value="Walkthrough/Design"> Walkthrough/Design<br>
+                </div>
+                <div class="question">
+                    <label>2. Why is it important to review customer info?</label>
+                    <input type="radio" name="q2" value="Understand Customer Needs"> Understand Customer Needs<br>
+                    <input type="radio" name="q2" value="Preempt Issues"> Preempt Issues<br>
+                    <input type="radio" name="q2" value="Both"> Both<br>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+            <div id="quiz-results"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 SIP Training</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
