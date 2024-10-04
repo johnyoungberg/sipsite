@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales & Install Process Knowledge Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sales & Install Process Knowledge Test</h1>
+
+        <!-- Diagram Structure with Drop Zones -->
+        <div class="diagram">
+            <!-- Box 1: Appointment Readiness -->
+            <div class="diagram-section">
+                <h3>Appointment Readiness</h3>
+                <div class="drop-zone" data-correct-order="1"></div>
+                <div class="drop-zone" data-correct-order="2"></div>
+                <div class="drop-zone" data-correct-order="3"></div>
+            </div>
+
+            <!-- Transition 1 -->
+            <div class="transition">
+                <span>Engage with Customer</span>
+            </div>
+
+            <!-- Box 2: Introduction -->
+            <div class="diagram-section">
+                <h3>Introduction</h3>
+                <div class="drop-zone" data-correct-order="4"></div>
+                <div class="drop-zone" data-correct-order="5"></div>
+                <div class="drop-zone" data-correct-order="6"></div>
+            </div>
+
+            <!-- Transition 2 -->
+            <div class="transition">
+                <span>Resolve Service Issues / Transition to Design Tool</span>
+            </div>
+
+            <!-- Box 3: Walkthrough/Design -->
+            <div class="diagram-section">
+                <h3>Walkthrough/Design</h3>
+                <div class="drop-zone" data-correct-order="7"></div>
+                <div class="drop-zone" data-correct-order="8"></div>
+                <div class="drop-zone" data-correct-order="9"></div>
+            </div>
+
+            <!-- Transition 3 -->
+            <div class="transition">
+                <span>Transition to Sit Down</span>
+            </div>
+
+            <!-- Box 4: Close -->
+            <div class="diagram-section">
+                <h3>Close</h3>
+                <div class="drop-zone" data-correct-order="10"></div>
+                <div class="drop-zone" data-correct-order="11"></div>
+                <div class="drop-zone" data-correct-order="12"></div>
+                <div class="drop-zone" data-correct-order="13"></div>
+                <div class="drop-zone" data-correct-order="14"></div>
+            </div>
+
+            <!-- Transition 4 -->
+            <div class="transition">
+                <span>Turn the Wrench</span>
+            </div>
+
+            <!-- Box 5: Review -->
+            <div class="diagram-section">
+                <h3>Review</h3>
+                <div class="drop-zone" data-correct-order="15"></div>
+                <div class="drop-zone" data-correct-order="16"></div>
+                <div class="drop-zone" data-correct-order="17"></div>
+            </div>
+        </div>
+
+        <!-- Behavior List (Now divided into 5 columns) -->
+        <div class="behaviors-list" id="behaviors-container">
+            <!-- JavaScript will populate this container with columns and behaviors -->
+        </div>
+
+<div class="buttons-container">
+    <button id="checkButton" disabled>Check Answers</button>
+    <button id="resetButton">Reset</button>
+</div>
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
