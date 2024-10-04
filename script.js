@@ -68,83 +68,71 @@ document.addEventListener('DOMContentLoaded', () => {
     function createDraggableElement(text, type) {
         const element = document.createElement('div');
         element.classList.add('draggable', type);
-        element.draggable = true;
         element.textContent = text;
         element.dataset.type = type;
-        element.addEventListener('dragstart', () => {
-            element.classList.add('dragging');
-        });
-        element.addEventListener('dragend', () => {
-            element.classList.remove('dragging');
-        });
+
+        // Store the original position
         element.addEventListener('click', () => {
             if (element.parentElement.classList.contains('dropzone')) {
                 originalPositions[text].appendChild(element);
             }
         });
+        
         return element;
     }
 
-    // Enable drop zones
-    function enableDropZones() {
-        const dropzones = document.querySelectorAll('.dropzone');
-        dropzones.forEach(dropzone => {
-            dropzone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                const draggable = document.querySelector('.dragging');
-                const draggableType = draggable.dataset.type;
-                const dropzoneType = dropzone.classList.contains('step-title') ? 'step' :
-                                     dropzone.classList.contains('behavior') ? 'behavior' :
-                                     dropzone.classList.contains('transition') ? 'transition' : '';
+    // Enable drag and drop using interact.js
+    function enableInteractJS() {
+        interact('.draggable').draggable({
+            inertia: true,
+            autoScroll: true,
+            listeners: {
+                move(event) {
+                    const target = event.target;
+                    const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+                    const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-                if (draggableType === dropzoneType && !dropzone.querySelector('.draggable')) {
-                    dropzone.classList.add('valid-drop');
-                } else {
-                    dropzone.classList.remove('valid-drop');
+                    // Translate the element
+                    target.style.transform = `translate(${x}px, ${y}px)`;
+
+                    // Update the position attributes
+                    target.setAttribute('data-x', x);
+                    target.setAttribute('data-y', y);
+                },
+                end(event) {
+                    // Reset the position if not dropped in a valid dropzone
+                    const target = event.target;
+                    target.style.transform = 'translate(0px, 0px)';
+                    target.removeAttribute('data-x');
+                    target.removeAttribute('data-y');
                 }
-            });
-
-            dropzone.addEventListener('dragleave', () => {
-                dropzone.classList.remove('valid-drop');
-            });
-
-            dropzone.addEventListener('drop', () => {
-                const draggable = document.querySelector('.dragging');
-                const draggableType = draggable.dataset.type;
-                const dropzoneType = dropzone.classList.contains('step-title') ? 'step' :
-                                     dropzone.classList.contains('behavior') ? 'behavior' :
-                                     dropzone.classList.contains('transition') ? 'transition' : '';
-
-                if (draggableType === dropzoneType && !dropzone.querySelector('.draggable')) {
-                    dropzone.appendChild(draggable);
-                    dropzone.classList.remove('valid-drop');
-                }
-            });
-        });
-    }
-
-    // Confetti effect function
-    function startConfettiEffect() {
-        const duration = 15 * 1000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        const interval = setInterval(function() {
-            const timeLeft = animationEnd - Date.now();
-
-            if (timeLeft <= 0) {
-                return clearInterval(interval);
             }
+        });
 
-            const particleCount = 50 * (timeLeft / duration);
-            // Confetti bursts from the left and right
-            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
-            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
-        }, 250);
+        interact('.dropzone').dropzone({
+            accept: '.draggable',
+            overlap: 0.75,
+            ondrop(event) {
+                const draggableElement = event.relatedTarget;
+                const dropzoneElement = event.target;
+                const draggableType = draggableElement.dataset.type;
+                const dropzoneType = dropzoneElement.classList.contains('step-title') ? 'step' :
+                                     dropzoneElement.classList.contains('behavior') ? 'behavior' :
+                                     dropzoneElement.classList.contains('transition') ? 'transition' : '';
+
+                if (draggableType === dropzoneType && !dropzoneElement.querySelector('.draggable')) {
+                    dropzoneElement.appendChild(draggableElement);
+                    draggableElement.style.transform = 'translate(0px, 0px)';
+                    draggableElement.removeAttribute('data-x');
+                    draggableElement.removeAttribute('data-y');
+                } else {
+                    // Reset the position if not valid
+                    draggableElement.style.transform = 'translate(0px, 0px)';
+                    draggableElement.removeAttribute('data-x');
+                    draggableElement.removeAttribute('data-y');
+                }
+            }
+        });
     }
 
     // Check answers
@@ -179,15 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
             feedback.textContent = 'Please place all elements before checking answers.';
         } else {
             feedback.textContent = `Score: ${correctCount} / ${dropzones.length}`;
-
-            // Trigger confetti if all answers are correct
-            if (correctCount === dropzones.length) {
-                startConfettiEffect();
-            }
-
-            document.querySelectorAll('.draggable').forEach(draggable => {
-                draggable.setAttribute('draggable', 'false');
-            });
         }
     });
 
@@ -203,12 +182,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         populateColumns();
-        enableDropZones();
+        enableInteractJS();
 
         feedback.textContent = '';
     });
 
     // Initial setup
     populateColumns();
-    enableDropZones();
+    enableInteractJS();
 });
