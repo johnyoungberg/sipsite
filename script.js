@@ -1,231 +1,214 @@
-// Behavior data
-const behaviorsData = [
-    "Review customer info",
-    "Discover interests",
-    "Preempt potential issues",
-    "Win a friend",
-    "Establish customer baseline",
-    "Outline appointment",
-    "Preempt objections",
-    "Customize/Build Value",
-    "Verify understanding",
-    "Solution/Cost review",
-    "Overcome objections",
-    "Start transaction",
-    "Set work expectations",
-    "Outline benefits",
-    "Review completed work",
-    "Educate customer",
-    "Benefits followup"
-];
+document.addEventListener('DOMContentLoaded', () => {
+    const steps = [
+        "Appointment Readiness",
+        "Introduction",
+        "Walkthrough/Design",
+        "Close",
+        "Review"
+    ];
 
-let placedBehaviors = 0; // Track the number of placed behaviors
+    const behaviors = [
+        "Review customer info", "Discover interests", "Preempt potential issues", 
+        "Win a friend", "Establish customer baseline", "Outline appointment",
+        "Preempt objections", "Customize/Build value", "Verify understanding",
+        "Solution/Cost review", "Overcome objections", "Start transaction",
+        "Set work expectations", "Outline benefits", "Review completed work",
+        "Educate customer", "Benefits followup"
+    ];
 
-// Randomly distribute behaviors into 5 columns with a max of 4 items each
-function distributeBehaviors() {
-    const behaviorsContainer = document.getElementById('behaviors-container');
-    const columns = [[], [], [], [], []]; // Initialize 5 empty columns
-    let remainingBehaviors = [...behaviorsData]; // Clone the behavior data for manipulation
+    const transitions = [
+        "Engage with customer", "Resolve service issues/Transition to design tool", 
+        "Transition to sit down", "Turn the wrench"
+    ];
 
-    // Randomly assign behaviors to columns
-    while (remainingBehaviors.length > 0) {
-        const randomIndex = Math.floor(Math.random() * remainingBehaviors.length);
-        const behavior = remainingBehaviors.splice(randomIndex, 1)[0];
+    let originalPositions = {};
 
-        // Find a column with fewer than 4 items
-        for (let i = 0; i < columns.length; i++) {
-            if (columns[i].length < 4) {
-                columns[i].push({ text: behavior, columnIndex: i }); // Store column index
-                break;
-            }
+    // Function to shuffle an array
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
     }
 
-    // Create the grid columns in the container
-    behaviorsContainer.innerHTML = ''; // Clear existing content
-    columns.forEach((column, index) => {
-        const columnDiv = document.createElement('div');
-        columnDiv.classList.add('column');
-        column.forEach(behavior => {
-            const behaviorElement = document.createElement('div');
-            behaviorElement.classList.add('behavior');
-            behaviorElement.setAttribute('draggable', 'true');
-            behaviorElement.setAttribute('data-order', behaviorsData.indexOf(behavior.text) + 1);
-            behaviorElement.setAttribute('data-column', behavior.columnIndex); // Store original column index
-            behaviorElement.textContent = behavior.text;
-            columnDiv.appendChild(behaviorElement);
+    // Populate the columns
+    function populateColumns() {
+        const stepsColumn = document.getElementById('steps-column');
+        shuffle(steps);
+        steps.forEach(step => {
+            const element = createDraggableElement(step, 'step');
+            stepsColumn.appendChild(element);
+            originalPositions[step] = stepsColumn;
         });
-        behaviorsContainer.appendChild(columnDiv);
-    });
 
-    // Re-initialize drag-and-drop functionality
-    initializeDragAndDrop();
-}
+        shuffle(behaviors);
+        const behaviorColumns = [
+            document.getElementById('behavior-column-1'),
+            document.getElementById('behavior-column-2'),
+            document.getElementById('behavior-column-3')
+        ];
+        let columnIndex = 0;
+        behaviors.forEach(behavior => {
+            const element = createDraggableElement(behavior, 'behavior');
+            behaviorColumns[columnIndex].appendChild(element);
+            originalPositions[behavior] = behaviorColumns[columnIndex];
+            columnIndex = (columnIndex + 1) % 3;
+        });
 
-// Initialize drag-and-drop functionality
-function initializeDragAndDrop() {
-    const behaviors = document.querySelectorAll('.behavior');
-    const dropZones = document.querySelectorAll('.drop-zone');
-
-    behaviors.forEach(behavior => {
-        behavior.addEventListener('dragstart', dragStart);
-        behavior.addEventListener('click', returnToBehaviorList);
-    });
-
-    dropZones.forEach(zone => {
-        zone.addEventListener('dragover', dragOver);
-        zone.addEventListener('drop', drop);
-        zone.addEventListener('dragenter', () => zone.classList.add('highlight'));
-        zone.addEventListener('dragleave', () => zone.classList.remove('highlight'));
-    });
-}
-
-function dragStart(event) {
-    event.dataTransfer.setData('text/plain', event.target.dataset.order);
-    const parentZone = event.target.parentElement;
-
-    // If the parent is a drop zone, clear its data and decrement placedBehaviors
-    if (parentZone.classList.contains('drop-zone')) {
-        parentZone.classList.remove('filled');
-        parentZone.dataset.selectedOrder = ''; // Clear the selected order
-        placedBehaviors -= 1; // Decrement the count
-    }
-}
-
-function dragOver(event) {
-    event.preventDefault();
-}
-
-function drop(event) {
-    event.preventDefault();
-    const behaviorOrder = event.dataTransfer.getData('text/plain');
-    const behaviorElement = document.querySelector(`.behavior[data-order='${behaviorOrder}']`);
-
-    if (!event.target.classList.contains('filled')) {
-        // Append the behavior element into the drop zone
-        event.target.textContent = '';
-        event.target.appendChild(behaviorElement);
-        event.target.classList.add('filled');
-        event.target.classList.remove('highlight');
-        event.target.dataset.selectedOrder = behaviorOrder;
-
-        // Increment the count only if this drop zone was previously empty
-        placedBehaviors += 1;
-
-        // Check if all drop zones are filled to enable the button
-        updateCheckButtonStatus();
-    }
-}
-
-function returnToBehaviorList(event) {
-    const behaviorElement = event.target;
-    const parentZone = behaviorElement.parentElement;
-
-    if (parentZone.classList.contains('drop-zone')) {
-        parentZone.classList.remove('filled');
-        parentZone.textContent = ''; // Clear the drop zone text
-        parentZone.dataset.selectedOrder = ''; // Clear the selected order
-
-        // Append the behavior back to its original column
-        const originalColumnIndex = behaviorElement.getAttribute('data-column');
-        const originalColumn = document.querySelectorAll('.column')[originalColumnIndex];
-        originalColumn.appendChild(behaviorElement);
-
-        placedBehaviors -= 1; // Decrement the count
-
-        // Disable check button until all behaviors are placed
-        updateCheckButtonStatus();
-    }
-}
-
-// Update the status of the "Check Answers" button
-function updateCheckButtonStatus() {
-    const dropZones = document.querySelectorAll('.drop-zone');
-    const unfilledCount = Array.from(dropZones).filter(zone => !zone.classList.contains('filled')).length;
-
-    const checkButton = document.getElementById('checkButton');
-    const message = document.getElementById('warning-message');
-
-    if (unfilledCount === 0) {
-        checkButton.disabled = false;
-        message.textContent = ''; // Clear warning message
-    } else {
-        checkButton.disabled = true;
-    }
-}
-
-// Check answers
-document.getElementById('checkButton').addEventListener('click', () => {
-    const dropZones = document.querySelectorAll('.drop-zone');
-    const unfilledCount = Array.from(dropZones).filter(zone => !zone.classList.contains('filled')).length;
-
-    if (unfilledCount > 0) {
-        // Display warning message if not all behaviors are placed
-        const message = document.getElementById('warning-message');
-        message.textContent = `You have ${unfilledCount} behaviors left to place before scoring.`;
-        return;
+        shuffle(transitions);
+        const transitionsColumn = document.getElementById('transitions-column');
+        transitions.forEach(transition => {
+            const element = createDraggableElement(transition, 'transition');
+            transitionsColumn.appendChild(element);
+            originalPositions[transition] = transitionsColumn;
+        });
     }
 
-    let correctCount = 0;
-    
-    dropZones.forEach(zone => {
-        const behaviorElement = zone.querySelector('.behavior');
-        if (behaviorElement) {
-            const selectedOrder = behaviorElement.dataset.order;
-            if (zone.dataset.correctOrder === selectedOrder) {
-                behaviorElement.classList.add('correct');
-                behaviorElement.classList.remove('incorrect');
+    // Function to create draggable elements
+    function createDraggableElement(text, type) {
+        const element = document.createElement('div');
+        element.classList.add('draggable', type);
+        element.draggable = true;
+        element.textContent = text;
+        element.dataset.type = type;
+        element.addEventListener('dragstart', () => {
+            element.classList.add('dragging');
+        });
+        element.addEventListener('dragend', () => {
+            element.classList.remove('dragging');
+        });
+        element.addEventListener('click', () => {
+            if (element.parentElement.classList.contains('dropzone')) {
+                originalPositions[text].appendChild(element);
+            }
+        });
+        return element;
+    }
+
+    // Enable drop zones
+    function enableDropZones() {
+        const dropzones = document.querySelectorAll('.dropzone');
+        dropzones.forEach(dropzone => {
+            dropzone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const draggable = document.querySelector('.dragging');
+                const draggableType = draggable.dataset.type;
+                const dropzoneType = dropzone.classList.contains('step-title') ? 'step' :
+                                     dropzone.classList.contains('behavior') ? 'behavior' :
+                                     dropzone.classList.contains('transition') ? 'transition' : '';
+
+                if (draggableType === dropzoneType && !dropzone.querySelector('.draggable')) {
+                    dropzone.classList.add('valid-drop');
+                } else {
+                    dropzone.classList.remove('valid-drop');
+                }
+            });
+
+            dropzone.addEventListener('dragleave', () => {
+                dropzone.classList.remove('valid-drop');
+            });
+
+            dropzone.addEventListener('drop', () => {
+                const draggable = document.querySelector('.dragging');
+                const draggableType = draggable.dataset.type;
+                const dropzoneType = dropzone.classList.contains('step-title') ? 'step' :
+                                     dropzone.classList.contains('behavior') ? 'behavior' :
+                                     dropzone.classList.contains('transition') ? 'transition' : '';
+
+                if (draggableType === dropzoneType && !dropzone.querySelector('.draggable')) {
+                    dropzone.appendChild(draggable);
+                    dropzone.classList.remove('valid-drop');
+                }
+            });
+        });
+    }
+
+    // Confetti effect function
+    function startConfettiEffect() {
+        const duration = 15 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            // Confetti bursts from the left and right
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
+    }
+
+    // Check answers
+    const checkButton = document.getElementById('check-answers');
+    const resetButton = document.getElementById('reset');
+    const feedback = document.getElementById('feedback');
+
+    checkButton.addEventListener('click', () => {
+        let correctCount = 0;
+        let allPlaced = true;
+        const dropzones = document.querySelectorAll('.dropzone');
+
+        dropzones.forEach(dropzone => {
+            const droppedElement = dropzone.querySelector('.draggable');
+
+            if (!droppedElement) {
+                allPlaced = false;
+                return;
+            }
+
+            if (droppedElement.textContent.trim() === dropzone.dataset.correct) {
+                dropzone.classList.add('correct');
+                dropzone.classList.remove('incorrect');
                 correctCount++;
             } else {
-                behaviorElement.classList.add('incorrect');
-                behaviorElement.classList.remove('correct');
+                dropzone.classList.add('incorrect');
+                dropzone.classList.remove('correct');
             }
+        });
+
+        if (!allPlaced) {
+            feedback.textContent = 'Please place all elements before checking answers.';
+        } else {
+            feedback.textContent = `Score: ${correctCount} / ${dropzones.length}`;
+
+            // Trigger confetti if all answers are correct
+            if (correctCount === dropzones.length) {
+                startConfettiEffect();
+            }
+
+            document.querySelectorAll('.draggable').forEach(draggable => {
+                draggable.setAttribute('draggable', 'false');
+            });
         }
     });
 
-    document.getElementById('result').textContent = `Score: ${correctCount} out of 17`;
-});
+    // Reset the game
+    resetButton.addEventListener('click', () => {
+        document.querySelectorAll('.dropzone').forEach(dropzone => {
+            dropzone.classList.remove('correct', 'incorrect');
+            dropzone.innerHTML = '';
+        });
 
-// Reset all behaviors
-document.getElementById('resetButton').addEventListener('click', () => {
-    resetBehaviors();
-    distributeBehaviors(); // Re-distribute behaviors when resetting
-});
+        document.querySelectorAll('.draggable-column').forEach(column => {
+            column.innerHTML = '';
+        });
 
-function resetBehaviors() {
-    // Remove all behaviors from drop zones and reset their classes
-    const dropZones = document.querySelectorAll('.drop-zone');
-    
-    dropZones.forEach(zone => {
-        const behaviorElement = zone.querySelector('.behavior');
-        if (behaviorElement) {
-            zone.classList.remove('filled');
-            zone.textContent = ''; // Clear the drop zone text
+        populateColumns();
+        enableDropZones();
 
-            // Append the behavior back to its original column
-            const originalColumnIndex = behaviorElement.getAttribute('data-column');
-            const originalColumn = document.querySelectorAll('.column')[originalColumnIndex];
-            originalColumn.appendChild(behaviorElement);
-
-            behaviorElement.classList.remove('correct', 'incorrect');
-        }
-        zone.dataset.selectedOrder = ''; // Clear selected orders
+        feedback.textContent = '';
     });
 
-    // Reset placed behaviors count and disable check button
-    placedBehaviors = 0;
-    updateCheckButtonStatus(); // Ensure the button is correctly disabled
-    document.getElementById('result').textContent = ''; // Clear the result text
-}
-
-// Call the function to distribute behaviors on page load
-window.onload = () => {
-    distributeBehaviors();
-};
-
-// Create the warning message element
-const warningMessage = document.createElement('div');
-warningMessage.id = 'warning-message';
-warningMessage.style.color = 'red';
-warningMessage.style.fontSize = 'small';
-document.getElementById('checkButton').insertAdjacentElement('afterend', warningMessage);
+    // Initial setup
+    populateColumns();
+    enableDropZones();
+});
