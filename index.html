@@ -12,6 +12,7 @@
         <h1>SIP Memorization Test</h1>
         <p>Fill in each dropdown with the correct step, behavior, or transition of the Sales and Install Process. Once all boxes are filled, tap "Check Answers" to see your score. If you want to try again or start over at any point, tap the "Reset" button.</p>
         <p><strong>Note</strong>: If you select the same answer more than once, the boxes will be highlighted in red.</p>
+        <button id="start-button">Start</button> <!-- Start button -->
     </div>
 
     <div class="container">
@@ -19,21 +20,21 @@
         <div class="step-transition-group">
             <div class="step" id="step-1">
                 <h2>Step 1</h2>
-                <select class="step-name-dropdown">
+                <select class="step-name-dropdown" disabled>
                     <option value="">Select Step Name</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
             </div>
             <div class="transition-vertical" id="transition-1">
-                <select class="transition-dropdown">
+                <select class="transition-dropdown" disabled>
                     <option value="">Select Transition</option>
                 </select>
             </div>
@@ -43,21 +44,21 @@
         <div class="step-transition-group">
             <div class="step" id="step-2">
                 <h2>Step 2</h2>
-                <select class="step-name-dropdown">
+                <select class="step-name-dropdown" disabled>
                     <option value="">Select Step Name</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
             </div>
             <div class="transition-vertical" id="transition-2">
-                <select class="transition-dropdown">
+                <select class="transition-dropdown" disabled>
                     <option value="">Select Transition</option>
                 </select>
             </div>
@@ -67,21 +68,21 @@
         <div class="step-transition-group">
             <div class="step" id="step-3">
                 <h2>Step 3</h2>
-                <select class="step-name-dropdown">
+                <select class="step-name-dropdown" disabled>
                     <option value="">Select Step Name</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
             </div>
             <div class="transition-vertical" id="transition-3">
-                <select class="transition-dropdown">
+                <select class="transition-dropdown" disabled>
                     <option value="">Select Transition</option>
                 </select>
             </div>
@@ -91,27 +92,27 @@
         <div class="step-transition-group">
             <div class="step" id="step-4">
                 <h2>Step 4</h2>
-                <select class="step-name-dropdown">
+                <select class="step-name-dropdown" disabled>
                     <option value="">Select Step Name</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
             </div>
             <div class="transition-vertical" id="transition-4">
-                <select class="transition-dropdown">
+                <select class="transition-dropdown" disabled>
                     <option value="">Select Transition</option>
                 </select>
             </div>
@@ -121,16 +122,16 @@
         <div class="step-transition-group">
             <div class="step" id="step-5">
                 <h2>Step 5</h2>
-                <select class="step-name-dropdown">
+                <select class="step-name-dropdown" disabled>
                     <option value="">Select Step Name</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
-                <select class="behavior-dropdown">
+                <select class="behavior-dropdown" disabled>
                     <option value="">Select Behavior</option>
                 </select>
             </div>
@@ -138,10 +139,11 @@
     </div>
 
     <div class="buttons">
-        <button id="check-answers">Check Answers</button>
+        <button id="check-answers" disabled>Check Answers</button>
         <button id="reset">Reset</button>
         <div id="score"></div> <!-- Score/Error display area -->
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

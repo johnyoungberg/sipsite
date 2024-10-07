@@ -1,3 +1,5 @@
+let startTime, endTime;
+
 const behaviors = [
     "Review customer info", "Discover interests", "Preempt potential issues",
     "Win a friend", "Establish customer baseline", "Outline appointment",
@@ -5,16 +7,16 @@ const behaviors = [
     "Solution/Cost review", "Overcome objections", "Start transaction",
     "Set work expectations", "Outline benefits",
     "Review completed work", "Educate customer", "Benefits followup"
-].sort(); // Sort the behaviors alphabetically
+].sort();
 
 const transitions = [
     "Engage with customer", "Resolve service issues/Transition to design tool",
     "Transition to sit down", "Turn the wrench"
-].sort(); // Sort the transitions alphabetically
+].sort();
 
 const stepNames = [
     "Appointment Readiness", "Introduction", "Walkthrough/Design", "Close", "Review"
-].sort(); // Sort the step names alphabetically
+].sort();
 
 const correctAnswers = [
     "Appointment Readiness", "Review customer info", "Discover interests", "Preempt potential issues", "Engage with customer",
@@ -24,9 +26,18 @@ const correctAnswers = [
     "Review", "Review completed work", "Educate customer", "Benefits followup"
 ];
 
-// Populate step name dropdowns
+// Start button logic
+document.getElementById('start-button').addEventListener('click', () => {
+    document.querySelectorAll('select').forEach(select => {
+        select.disabled = false; // Unlock all dropdowns
+    });
+    document.getElementById('check-answers').disabled = false; // Enable the Check Answers button
+    startTime = new Date(); // Start the timer
+});
+
+// Populate dropdowns
 document.querySelectorAll('.step-name-dropdown').forEach(dropdown => {
-    dropdown.innerHTML = '<option value="">Select Step Name</option>'; // Clear existing options
+    dropdown.innerHTML = '<option value="">Select Step Name</option>';
     stepNames.forEach(stepName => {
         let option = document.createElement('option');
         option.value = stepName;
@@ -35,9 +46,8 @@ document.querySelectorAll('.step-name-dropdown').forEach(dropdown => {
     });
 });
 
-// Populate behavior dropdowns
 document.querySelectorAll('.behavior-dropdown').forEach(dropdown => {
-    dropdown.innerHTML = '<option value="">Select Behavior</option>'; // Clear existing options
+    dropdown.innerHTML = '<option value="">Select Behavior</option>';
     behaviors.forEach(behavior => {
         let option = document.createElement('option');
         option.value = behavior;
@@ -46,9 +56,8 @@ document.querySelectorAll('.behavior-dropdown').forEach(dropdown => {
     });
 });
 
-// Populate transition dropdowns
 document.querySelectorAll('.transition-dropdown').forEach(dropdown => {
-    dropdown.innerHTML = '<option value="">Select Transition</option>'; // Clear existing options
+    dropdown.innerHTML = '<option value="">Select Transition</option>';
     transitions.forEach(transition => {
         let option = document.createElement('option');
         option.value = transition;
@@ -57,7 +66,7 @@ document.querySelectorAll('.transition-dropdown').forEach(dropdown => {
     });
 });
 
-// Function to check for duplicates and highlight them
+// Check duplicates and highlight them
 function checkDuplicates() {
     let hasDuplicates = false;
     // Clear previous highlights
@@ -98,7 +107,7 @@ function areAllDropdownsFilled() {
     return allFilled;
 }
 
-// Check for duplicates, validate answers, and lock dropdowns
+// Check answers logic
 document.getElementById('check-answers').addEventListener('click', () => {
     const scoreElement = document.getElementById('score');
     scoreElement.textContent = ""; // Clear previous messages
@@ -122,18 +131,23 @@ document.getElementById('check-answers').addEventListener('click', () => {
 
     let correctCount = 0;
 
+    // Validate each dropdown against the correct answers
     document.querySelectorAll('select').forEach((select, index) => {
         let value = select.value;
 
         // Check if the selection is correct
         if (value === correctAnswers[index]) {
-            select.classList.add('correct');
+            select.classList.add('correct'); // Highlight correct answers
             correctCount++;
         }
     });
 
-    // Display the score
-    scoreElement.textContent = `You got ${correctCount} / ${correctAnswers.length} correct.`;
+    // Calculate the time taken
+    endTime = new Date();
+    let timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+
+    // Display the score and time
+    scoreElement.textContent = `You got ${correctCount} / ${correctAnswers.length} correct in ${timeTaken} seconds.`;
 
     // Lock all dropdowns
     document.querySelectorAll('select').forEach(select => {
@@ -141,15 +155,14 @@ document.getElementById('check-answers').addEventListener('click', () => {
     });
 });
 
-// Reset the selections
+// Reset logic
 document.getElementById('reset').addEventListener('click', () => {
     document.querySelectorAll('select').forEach(select => {
         select.value = "";
         select.classList.remove('highlight', 'correct');
-        select.disabled = false; // Unlock the dropdowns
+        select.disabled = true; // Lock the dropdowns
     });
 
-    // Clear the score or error display
-    const scoreElement = document.getElementById('score');
-    scoreElement.textContent = "";
+    document.getElementById('check-answers').disabled = true; // Disable the Check Answers button
+    document.getElementById('score').textContent = ""; // Clear the score/error display
 });
