@@ -1,4 +1,4 @@
-let startTime, endTime;
+let startTime, endTime, timerInterval;
 
 const behaviors = [
     "Review customer info", "Discover interests", "Preempt potential issues",
@@ -44,7 +44,6 @@ function startConfettiEffect() {
         }
 
         const particleCount = 50 * (timeLeft / duration);
-        // Confetti bursts from the left and right
         confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
         confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
     }, 250);
@@ -56,7 +55,17 @@ document.getElementById('start-button').addEventListener('click', () => {
         select.disabled = false; // Unlock all dropdowns
     });
     document.getElementById('check-answers').disabled = false; // Enable the Check Answers button
+    document.getElementById('start-button').disabled = true; // Disable the Start button
     startTime = new Date(); // Start the timer
+
+    // Display the timer and start updating it
+    const timerElement = document.getElementById('timer');
+    timerElement.style.display = 'block';
+    timerInterval = setInterval(() => {
+        const currentTime = new Date();
+        const elapsedTime = ((currentTime - startTime) / 1000).toFixed(2);
+        timerElement.textContent = `Time: ${elapsedTime}s`;
+    }, 100);
 });
 
 // Populate dropdowns
@@ -93,7 +102,6 @@ document.querySelectorAll('.transition-dropdown').forEach(dropdown => {
 // Check duplicates and highlight them
 function checkDuplicates() {
     let hasDuplicates = false;
-    // Clear previous highlights
     document.querySelectorAll('select').forEach(select => {
         select.classList.remove('highlight');
     });
@@ -103,7 +111,6 @@ function checkDuplicates() {
         selectedValues.push(select.value);
     });
 
-    // Find and highlight duplicates
     let duplicates = selectedValues.filter((item, index) => item && selectedValues.indexOf(item) !== index);
     document.querySelectorAll('select').forEach(select => {
         if (duplicates.includes(select.value)) {
@@ -142,9 +149,7 @@ document.getElementById('check-answers').addEventListener('click', () => {
         return;
     }
 
-   
-
- // Check for duplicates
+    // Check for duplicates
     if (checkDuplicates()) {
         scoreElement.textContent = 'Error: There are duplicate answers. Please resolve them before checking.';
         return;
@@ -184,6 +189,9 @@ document.getElementById('check-answers').addEventListener('click', () => {
     document.querySelectorAll('select').forEach(select => {
         select.disabled = true;
     });
+
+    // Stop the live timer
+    clearInterval(timerInterval);
 });
 
 // Reset logic
@@ -196,4 +204,13 @@ document.getElementById('reset').addEventListener('click', () => {
 
     document.getElementById('check-answers').disabled = true; // Disable the Check Answers button
     document.getElementById('score').textContent = ""; // Clear the score/error display
+
+    // Reset the timer
+    clearInterval(timerInterval);
+    const timerElement = document.getElementById('timer');
+    timerElement.style.display = 'none'; // Hide the timer
+    timerElement.textContent = "Time: 0.00s";
+
+    // Enable the Start button
+    document.getElementById('start-button').disabled = false;
 });

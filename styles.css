@@ -23,6 +23,15 @@ body {
     margin: 5px 0;
 }
 
+#start-button {
+    margin: 20px 0; /* Add space above and below the Start button */
+}
+
+button:disabled {
+    background-color: #a9a9a9; /* Grey out the button when disabled */
+    cursor: not-allowed;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping for responsive design */
