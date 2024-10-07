@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Title and Instructions -->
+    <div class="header">
+        <h1>SIP Memorization Test</h1>
+        <p>Fill in each dropdown with the correct step, behavior, or transition of the Sales and Install Process. Once all boxes are filled, tap "Check Answers" to see your score. If you want to try again or start over at any point, tap the "Reset" button.</p>
+        <p><strong>Note</strong>: If you select the same answer more than once, the boxes will be highlighted in red.</p>
+    </div>
+
     <div class="container">
         <!-- Step 1 and Transition 1 -->
         <div class="step-transition-group">
@@ -31,7 +38,7 @@
                 </select>
             </div>
         </div>
-        
+
         <!-- Step 2 and Transition 2 -->
         <div class="step-transition-group">
             <div class="step" id="step-2">
@@ -55,7 +62,7 @@
                 </select>
             </div>
         </div>
-        
+
         <!-- Step 3 and Transition 3 -->
         <div class="step-transition-group">
             <div class="step" id="step-3">
@@ -79,7 +86,7 @@
                 </select>
             </div>
         </div>
-        
+
         <!-- Step 4 and Transition 4 -->
         <div class="step-transition-group">
             <div class="step" id="step-4">
@@ -109,7 +116,7 @@
                 </select>
             </div>
         </div>
-        
+
         <!-- Step 5 -->
         <div class="step-transition-group">
             <div class="step" id="step-5">
@@ -129,11 +136,12 @@
             </div>
         </div>
     </div>
+
     <div class="buttons">
-    <button id="check-answers">Check Answers</button>
-    <button id="reset">Reset</button>
-    <div id="score"></div> <!-- Score display area -->
-</div>
+        <button id="check-answers">Check Answers</button>
+        <button id="reset">Reset</button>
+        <div id="score"></div> <!-- Score/Error display area -->
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
