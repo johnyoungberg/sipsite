@@ -3,91 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales and Install Process Memorization Test</title>
+    <title>Sales and Install Process Test</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Include interact.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <script src="script.js"></script> <!-- Ensure this is included after the interact.js library -->
 </head>
 <body>
-    <!-- First Section: Title -->
-    <div class="section title-section">
-        <h1>Sales and Install Process Memorization Test</h1>
-    </div>
-
-    <!-- Second Section: Drop Zones for Steps and Behaviors -->
-    <div class="section process-section">
-        <div class="process-container">
-            <!-- Step 1 -->
-            <div class="step-box">
-                <div class="dropzone step-title" data-correct="Appointment Readiness"></div>
-                <div class="dropzone behavior" data-correct="Review customer info"></div>
-                <div class="dropzone behavior" data-correct="Discover interests"></div>
-                <div class="dropzone behavior" data-correct="Preempt potential issues"></div>
+    <div class="container">
+        <!-- Step 1 and Transition 1 -->
+        <div class="step-transition-group">
+            <div class="step" id="step-1">
+                <h2>Step 1</h2>
+                <select class="step-name-dropdown">
+                    <option value="">Select Step Name</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
             </div>
-            <!-- Transition 1 -->
-            <div class="transition-box dropzone transition vertical-text" data-correct="Engage with customer"></div>
-
-            <!-- Step 2 -->
-            <div class="step-box">
-                <div class="dropzone step-title" data-correct="Introduction"></div>
-                <div class="dropzone behavior" data-correct="Win a friend"></div>
-                <div class="dropzone behavior" data-correct="Establish customer baseline"></div>
-                <div class="dropzone behavior" data-correct="Outline appointment"></div>
+            <div class="transition-vertical" id="transition-1">
+                <select class="transition-dropdown">
+                    <option value="">Select Transition</option>
+                </select>
             </div>
-            <!-- Transition 2 -->
-            <div class="transition-box dropzone transition vertical-text" data-correct="Resolve service issues/Transition to design tool"></div>
-
-            <!-- Step 3 -->
-            <div class="step-box">
-                <div class="dropzone step-title" data-correct="Walkthrough/Design"></div>
-                <div class="dropzone behavior" data-correct="Preempt objections"></div>
-                <div class="dropzone behavior" data-correct="Customize/Build value"></div>
-                <div class="dropzone behavior" data-correct="Verify understanding"></div>
+        </div>
+        
+        <!-- Step 2 and Transition 2 -->
+        <div class="step-transition-group">
+            <div class="step" id="step-2">
+                <h2>Step 2</h2>
+                <select class="step-name-dropdown">
+                    <option value="">Select Step Name</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
             </div>
-            <!-- Transition 3 -->
-            <div class="transition-box dropzone transition vertical-text" data-correct="Transition to sit down"></div>
-
-            <!-- Step 4 -->
-            <div class="step-box">
-                <div class="dropzone step-title" data-correct="Close"></div>
-                <div class="dropzone behavior" data-correct="Solution/Cost review"></div>
-                <div class="dropzone behavior" data-correct="Overcome objections"></div>
-                <div class="dropzone behavior" data-correct="Start transaction"></div>
-                <div class="dropzone behavior" data-correct="Set work expectations"></div>
-                <div class="dropzone behavior" data-correct="Outline benefits"></div>
+            <div class="transition-vertical" id="transition-2">
+                <select class="transition-dropdown">
+                    <option value="">Select Transition</option>
+                </select>
             </div>
-            <!-- Transition 4 -->
-            <div class="transition-box dropzone transition vertical-text" data-correct="Turn the wrench"></div>
-
-            <!-- Step 5 -->
-            <div class="step-box">
-                <div class="dropzone step-title" data-correct="Review"></div>
-                <div class="dropzone behavior" data-correct="Review completed work"></div>
-                <div class="dropzone behavior" data-correct="Educate customer"></div>
-                <div class="dropzone behavior" data-correct="Benefits followup"></div>
+        </div>
+        
+        <!-- Step 3 and Transition 3 -->
+        <div class="step-transition-group">
+            <div class="step" id="step-3">
+                <h2>Step 3</h2>
+                <select class="step-name-dropdown">
+                    <option value="">Select Step Name</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+            </div>
+            <div class="transition-vertical" id="transition-3">
+                <select class="transition-dropdown">
+                    <option value="">Select Transition</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Step 4 and Transition 4 -->
+        <div class="step-transition-group">
+            <div class="step" id="step-4">
+                <h2>Step 4</h2>
+                <select class="step-name-dropdown">
+                    <option value="">Select Step Name</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+            </div>
+            <div class="transition-vertical" id="transition-4">
+                <select class="transition-dropdown">
+                    <option value="">Select Transition</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Step 5 -->
+        <div class="step-transition-group">
+            <div class="step" id="step-5">
+                <h2>Step 5</h2>
+                <select class="step-name-dropdown">
+                    <option value="">Select Step Name</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
+                <select class="behavior-dropdown">
+                    <option value="">Select Behavior</option>
+                </select>
             </div>
         </div>
     </div>
-
-    <!-- Third Section: Draggable Elements -->
-    <div class="section draggable-section">
-        <div id="columns-container">
-            <div class="draggable-column" id="steps-column"></div>
-            <div class="draggable-column" id="behavior-column-1"></div>
-            <div class="draggable-column" id="behavior-column-2"></div>
-            <div class="draggable-column" id="behavior-column-3"></div>
-            <div class="draggable-column" id="transitions-column"></div>
-        </div>
-    </div>
-
-    <!-- Fourth Section: Buttons and Feedback -->
-    <div class="section button-section">
-        <button id="check-answers">Check Answers</button>
-        <button id="reset">Reset</button>
-        <div id="feedback"></div>
-    </div>
-
+    <div class="buttons">
+    <button id="check-answers">Check Answers</button>
+    <button id="reset">Reset</button>
+    <div id="score"></div> <!-- Score display area -->
+</div>
     <script src="script.js"></script>
 </body>
 </html>

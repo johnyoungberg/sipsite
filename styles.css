@@ -1,169 +1,98 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #485958;
-    color: #fff;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
-    padding: 0;
-}
-
-.section {
     padding: 20px;
-    text-align: center;
 }
 
-.title-section {
-    background-color: #485958;
-}
-
-.process-section {
+.container {
     display: flex;
-    justify-content: center;
-    background-color: #485958;
-    padding: 20px;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-}
-
-.process-container {
-    display: flex;
+    flex-wrap: wrap; /* Allow wrapping for responsive design */
+    justify-content: space-evenly; /* Space items evenly with controlled spacing */
     align-items: flex-start;
-    gap: 20px;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    width: 100%;
+    max-width: 1200px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center the container */
 }
 
-.step-box {
+.step {
     background-color: #5E7775;
-    padding: 10px;
-    width: 180px; /* Adjusted width for smaller screens */
-    height: 350px; /* Adjusted height */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.transition-box {
-    background-color: #fff;
-    padding: 10px;
-    border: 2px solid #aaa;
-    width: 30px; /* Width for transition drop zones */
-    height: 350px; /* Adjusted height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dropzone {
-    border: 2px dashed #aaa;
-    background-color: #9BABA9;
-    color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Step drop zones */
-.dropzone.step-title {
-    width: 180px; /* Adjusted width */
-    height: 65px; /* Adjusted height */
-    margin-bottom: 10px;
-}
-
-/* Behavior drop zones */
-.dropzone.behavior {
-    width: 180px; /* Adjusted width */
-    height: 40px; /* Adjusted height */
-    margin: 5px 0;
-}
-
-.draggable-section {
-    display: flex;
-    justify-content: center;
-    background-color: #fff;
-    color: #000;
-    padding: 20px;
-    flex-wrap: wrap; /* Allows wrapping */
-}
-
-#columns-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-    gap: 10px;
-    max-width: 100%; /* Ensure it fits within the screen width */
-}
-
-.draggable-column {
-    padding: 10px;
-    min-width: 200px; /* Adjusted for smaller screens */
-    max-width: 250px; /* Set a maximum width */
-    min-height: 200px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    overflow-y: auto; /* Add scroll if content overflows */
-    max-height: 400px; /* Limit height to fit in portrait mode */
-}
-
-.draggable {
-    border: 1px solid #aaa;
-    padding: 5px;
-    background-color: #fafafa60;
-    cursor: pointer;
-    width: 170px; /* Adjusted width */
-    height: 25px; /* Adjusted height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.draggable.step {
-    font-weight: bold;
-    height: 40px; /* Adjusted height */
-}
-
-.draggable.transition {
-    writing-mode: vertical-lr;
+    color: white;
+    margin: 10px; /* This spacing will control the max spacing between blocks */
+    padding: 15px;
+    border-radius: 8px;
+    min-width: 230px; /* Minimum width for step boxes */
     text-align: center;
-    width: 30px;
-    height: 330px; /* Adjusted height */
+    height: 260px; /* Fixed height for the steps */
 }
 
-.button-section {
-    background-color: #485958;
-    padding: 20px;
+.transition-vertical {
+    background-color: #5E7775;
+    color: white;
+    margin: 10px; /* This spacing controls the spacing between steps and transitions */
+    padding: 5px;
+    border-radius: 8px;
+    text-align: center;
+    width: auto;
+    height: 280px;
+}
+
+.transition-vertical select {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    max-height: 260px; /* Limit height to fit inside the box */
+    overflow-y: auto; /* Add scrolling if dropdown exceeds max height */
+}
+
+select {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.step-name-dropdown {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px; /* Gap below step name dropdown */
+}
+
+.behavior-dropdown {
+    margin-bottom: 10px; /* Gap between behavior dropdowns */
+}
+
+.buttons {
+    margin-top: 20px;
+    text-align: center;
 }
 
 button {
+    margin: 0 10px;
     padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.highlight {
+    border: 2px solid red;
 }
 
 .correct {
-    border-color: green;
+    background-color: #4caf50;
 }
 
-.incorrect {
-    border-color: red;
+/* Group each step with its transition to keep them together on the same line */
+.step-transition-group {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping between step and its transition */
+    align-items: flex-start;
 }
 
-/* Media Query for iPad Portrait Orientation */
-@media only screen and (max-width: 768px) {
-    .process-container, #columns-container {
-        flex-direction: column; /* Stack elements vertically */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
         align-items: center;
-    }
-
-    .draggable-column {
-        min-width: 100%; /* Make columns take full width */
-        max-width: 100%;
-    }
-
-    .step-box, .transition-box {
-        width: 90%; /* Adjust width to fit screen */
-    }
-
-    .draggable {
-        width: 90%; /* Adjust draggable element width */
     }
 }
