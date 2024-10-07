@@ -26,6 +26,30 @@ const correctAnswers = [
     "Review", "Review completed work", "Educate customer", "Benefits followup"
 ];
 
+// Confetti effect function
+function startConfettiEffect() {
+    const duration = 15 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        // Confetti bursts from the left and right
+        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+        confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+    }, 250);
+}
+
 // Start button logic
 document.getElementById('start-button').addEventListener('click', () => {
     document.querySelectorAll('select').forEach(select => {
@@ -118,7 +142,9 @@ document.getElementById('check-answers').addEventListener('click', () => {
         return;
     }
 
-    // Check for duplicates
+   
+
+ // Check for duplicates
     if (checkDuplicates()) {
         scoreElement.textContent = 'Error: There are duplicate answers. Please resolve them before checking.';
         return;
@@ -148,6 +174,11 @@ document.getElementById('check-answers').addEventListener('click', () => {
 
     // Display the score and time
     scoreElement.textContent = `You got ${correctCount} / ${correctAnswers.length} correct in ${timeTaken} seconds.`;
+
+    // If all answers are correct, start the confetti effect
+    if (correctCount === correctAnswers.length) {
+        startConfettiEffect();
+    }
 
     // Lock all dropdowns
     document.querySelectorAll('select').forEach(select => {
