@@ -2,15 +2,14 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
 .header {
+    padding: 20px;
     text-align: center;
-    margin-bottom: 20px;
-    max-width: 450px; /* Set the maximum width for the title and instruction section */
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 450px;
+    margin: 0 auto 20px auto;
 }
 
 .header h1 {
@@ -24,55 +23,58 @@ body {
 }
 
 #start-button {
-    margin: 20px 0; /* Add space above and below the Start button */
+    margin: 20px 0;
 }
 
 button:disabled {
-    background-color: #a9a9a9; /* Grey out the button when disabled */
+    background-color: #a9a9a9;
     cursor: not-allowed;
 }
 
 .container {
+    background-color: #485958;
+    padding: 20px;
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping for responsive design */
-    justify-content: space-evenly; /* Space items evenly with controlled spacing */
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: flex-start;
     width: 100%;
-    max-width: 1200px; /* Set a maximum width for the container */
-    margin: 0 auto; /* Center the container */
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .step {
     background-color: #5E7775;
     color: white;
-    margin: 10px;
     padding: 15px;
     border-radius: 8px;
-    min-width: 230px; /* Minimum width for step boxes */
+    flex: 1 1 230px;
     text-align: center;
-    height: 260px; /* Fixed height for the steps */
+    height: 260px;
+    min-width: 230px;
+    max-width: 250px;
 }
 
 .transition-vertical {
-    background-color: #5E7775;
+    background-color: #485958;
     color: white;
-    margin: 10px;
     padding: 5px;
     border-radius: 8px;
     text-align: center;
-    width: auto;
-    min-width: 25px; /* Set the minimum width for transition boxes */
+    flex: 1 1 auto;
+    min-width: 25px;
     height: 280px;
 }
 
 .transition-vertical select {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    max-height: 260px; /* Limit height to fit inside the box */
-    overflow-y: auto; /* Add scrolling if dropdown exceeds max height */
+    max-height: 260px;
+    overflow-y: auto;
 }
 
-select {
+.select {
     display: block;
     width: 100%;
     margin-top: 10px;
@@ -81,20 +83,20 @@ select {
 .step-name-dropdown {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 20px; /* Gap below step name dropdown */
+    margin-bottom: 20px;
 }
 
 .behavior-dropdown {
-    margin-bottom: 10px; /* Gap between behavior dropdowns */
+    margin-bottom: 10px;
 }
 
 .buttons {
-    margin-top: 20px;
+    padding: 20px;
     text-align: center;
 }
 
 #score {
-    margin-top: 20px; /* Add space between the buttons and the score/error row */
+    margin-top: 20px;
     font-size: 16px;
     text-align: center;
 }
@@ -110,18 +112,23 @@ button {
 }
 
 .highlight {
-    border: 2px solid red;
+    border: 3px solid #C54B38;
 }
 
 .correct {
     background-color: #4caf50;
 }
 
-/* Group each step with its transition to keep them together on the same line */
+.incorrect {
+    background-color: #C54B38;
+}
+
 .step-transition-group {
     display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping between step and its transition */
+    flex-wrap: nowrap;
     align-items: flex-start;
+    margin: 10px 0;
+    min-width: 0;
 }
 
 @media screen and (max-width: 768px) {

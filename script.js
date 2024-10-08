@@ -33,7 +33,7 @@ function startConfettiEffect() {
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
     function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
+        return Math.random() * (min - max) + min;
     }
 
     const interval = setInterval(function() {
@@ -144,6 +144,8 @@ document.getElementById('check-answers').addEventListener('click', () => {
     scoreElement.textContent = ""; // Clear previous messages
 
     // Check if all dropdowns are filled
+
+
     if (!areAllDropdownsFilled()) {
         scoreElement.textContent = 'Error: Please fill in every box before checking.';
         return;
@@ -157,7 +159,7 @@ document.getElementById('check-answers').addEventListener('click', () => {
 
     // Clear previous highlights
     document.querySelectorAll('select').forEach(select => {
-        select.classList.remove('highlight', 'correct');
+        select.classList.remove('highlight', 'correct', 'incorrect');
     });
 
     let correctCount = 0;
@@ -170,6 +172,8 @@ document.getElementById('check-answers').addEventListener('click', () => {
         if (value === correctAnswers[index]) {
             select.classList.add('correct'); // Highlight correct answers
             correctCount++;
+        } else {
+            select.classList.add('incorrect'); // Highlight incorrect answers
         }
     });
 
@@ -198,7 +202,7 @@ document.getElementById('check-answers').addEventListener('click', () => {
 document.getElementById('reset').addEventListener('click', () => {
     document.querySelectorAll('select').forEach(select => {
         select.value = "";
-        select.classList.remove('highlight', 'correct');
+        select.classList.remove('highlight', 'correct', 'incorrect');
         select.disabled = true; // Lock the dropdowns
     });
 
